@@ -15,7 +15,18 @@ public class DataUtil {
     private static final String PRODUCT_FILE = DATA_DIR + File.separator + "products.txt";
     private static final String PROFILE_FILE = DATA_DIR + File.separator + "profiles.txt";
 
-
+    static {
+        File dir = new File(DATA_DIR);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        try {
+            new File(PRODUCT_FILE).createNewFile();
+            new File(PROFILE_FILE).createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 public static void saveProducts(ArrayList<Product> products) {
     try (PrintWriter writer = new PrintWriter(new FileWriter(PRODUCT_FILE))) {
         for (Product p : products) {
