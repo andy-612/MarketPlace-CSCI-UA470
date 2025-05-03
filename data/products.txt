@@ -1,4 +1,0 @@
-Laptop,999.99,10,0,0.00,Buyer: 1 Seller: 1
-Phone,499.99,5,0,0.00,
-Headphones,199.99,7,0,0.00,
-Monitor,299.99,3,0,0.00,
