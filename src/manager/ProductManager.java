@@ -10,13 +10,6 @@ public class ProductManager {
 
     public ProductManager() {
         products = DataUtil.loadProducts();
-        // mock data
-        if (products.isEmpty()) {
-            addProduct("Laptop", 999.99, 10);
-            addProduct("Phone", 499.99, 5);
-            addProduct("Headphones", 199.99, 7);
-            addProduct("Monitor", 299.99, 3);
-        }
     }
 
     public void addProduct(String name, double price, int quantity) {
@@ -38,7 +31,6 @@ public class ProductManager {
         }
         return false;
     }
-    
 
     public boolean increaseQuantity(String productName) {
         for (Product p : products) {
