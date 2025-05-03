@@ -7,12 +7,25 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class DataUtil {
-    private static final String PRODUCT_FILE = "data/products.txt";
-    private static final String PROFILE_FILE = "data/profiles.txt";
+    private static final String DATA_DIR     = "data";
+    private static final String PRODUCT_FILE = DATA_DIR + File.separator + "products.txt";
+    private static final String PROFILE_FILE = DATA_DIR + File.separator + "profiles.txt";
+
+    static {
+        File dir = new File(DATA_DIR);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        try {
+            new File(PRODUCT_FILE).createNewFile();
+            new File(PROFILE_FILE).createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void saveProducts(ArrayList<Product> products) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(PRODUCT_FILE))) {
@@ -42,7 +55,6 @@ public class DataUtil {
                 double price   = Double.parseDouble(parts[1]);
                 int qty        = Integer.parseInt(parts[2]);
                 int sold       = Integer.parseInt(parts[3]);
-                double revenue = Double.parseDouble(parts[4]);
                 ArrayList<String> revs = new ArrayList<>();
                 if (parts.length == 6 && !parts[5].isEmpty()) {
                     revs = new ArrayList<>(Arrays.asList(parts[5].split(";")));

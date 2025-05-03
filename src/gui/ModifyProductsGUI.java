@@ -39,10 +39,18 @@ public class ModifyProductsGUI extends JFrame {
         contentPane.add(txtNewQuantity);
 
         table.getSelectionModel().addListSelectionListener(e -> {
-            int r = table.getSelectedRow();
-            txtNewName.setText(model.getValueAt(r,0).toString());
-            txtNewPrice.setText(model.getValueAt(r,1).toString());
-            txtNewQuantity.setText(model.getValueAt(r,2).toString());
+            if (!e.getValueIsAdjusting()) {
+                int r = table.getSelectedRow();
+                if (r != -1) {
+                    txtNewName.setText(model.getValueAt(r, 0).toString());
+                    txtNewPrice.setText(model.getValueAt(r, 1).toString());
+                    txtNewQuantity.setText(model.getValueAt(r, 2).toString());
+                } else {
+                    txtNewName.setText("");
+                    txtNewPrice.setText("");
+                    txtNewQuantity.setText("");
+                }
+            }
         });
 
         JButton btnUpdate = new JButton("Update");
@@ -65,12 +73,22 @@ public class ModifyProductsGUI extends JFrame {
         btnDelete.setBounds(360,310,120,30);
         btnDelete.addActionListener(e -> {
             int r = table.getSelectedRow();
+            if (r == -1) {
+                JOptionPane.showMessageDialog(this, "Please select a product to delete.");
+                return;
+            }
+        
             Product prod = productManager.getProducts().get(r);
             productManager.getProducts().remove(prod);
-            DataUtil.saveProducts(productManager.getProducts());
+            DataUtil.saveProducts(productManager.getProducts());        
+
             model.removeRow(r);
-            txtNewName.setText(""); txtNewPrice.setText(""); txtNewQuantity.setText("");
-            JOptionPane.showMessageDialog(this,"Product deleted successfully!");
+
+            txtNewName.setText("");
+            txtNewPrice.setText("");
+            txtNewQuantity.setText("");
+        
+            JOptionPane.showMessageDialog(this, "Product deleted successfully!");
         });
         contentPane.add(btnDelete);
 
