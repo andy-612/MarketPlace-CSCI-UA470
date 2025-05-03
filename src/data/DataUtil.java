@@ -8,42 +8,34 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DataUtil {
     private static final String DATA_DIR     = "data";
     private static final String PRODUCT_FILE = DATA_DIR + File.separator + "products.txt";
     private static final String PROFILE_FILE = DATA_DIR + File.separator + "profiles.txt";
 
-    static {
-        File dir = new File(DATA_DIR);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        try {
-            new File(PRODUCT_FILE).createNewFile();
-            new File(PROFILE_FILE).createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public static void saveProducts(ArrayList<Product> products) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(PRODUCT_FILE))) {
-            for (Product p : products) {
-                String revs = String.join(";", p.getReviews());
-                writer.printf("%s,%.2f,%d,%d,%.2f,%s%n",
-                    p.getName(),
-                    p.getPrice(),
-                    p.getQuantity(),
-                    p.getUnitsSold(),
-                    p.getRevenue(),
-                    revs
-                );
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+public static void saveProducts(ArrayList<Product> products) {
+    try (PrintWriter writer = new PrintWriter(new FileWriter(PRODUCT_FILE))) {
+        for (Product p : products) {
+            String revs = p.getReviews().stream()
+                .map(r -> r.replace("\n", " "))        
+                .collect(Collectors.joining(";"));     
+
+            writer.printf("%s,%.2f,%d,%d,%.2f,%s%n",
+                p.getName(),
+                p.getPrice(),
+                p.getQuantity(),
+                p.getUnitsSold(),
+                p.getRevenue(),
+                revs
+            );
         }
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
 
     public static ArrayList<Product> loadProducts() {
         ArrayList<Product> products = new ArrayList<>();
