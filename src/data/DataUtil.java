@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DataUtil {
     private static final String DATA_DIR     = "data";
@@ -26,24 +27,26 @@ public class DataUtil {
             e.printStackTrace();
         }
     }
+public static void saveProducts(ArrayList<Product> products) {
+    try (PrintWriter writer = new PrintWriter(new FileWriter(PRODUCT_FILE))) {
+        for (Product p : products) {
+            String revs = p.getReviews().stream()
+                .map(r -> r.replace("\n", " "))        
+                .collect(Collectors.joining(";"));     
 
-    public static void saveProducts(ArrayList<Product> products) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(PRODUCT_FILE))) {
-            for (Product p : products) {
-                String revs = String.join(";", p.getReviews());
-                writer.printf("%s,%.2f,%d,%d,%.2f,%s%n",
-                    p.getName(),
-                    p.getPrice(),
-                    p.getQuantity(),
-                    p.getUnitsSold(),
-                    p.getRevenue(),
-                    revs
-                );
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+            writer.printf("%s,%.2f,%d,%d,%.2f,%s%n",
+                p.getName(),
+                p.getPrice(),
+                p.getQuantity(),
+                p.getUnitsSold(),
+                p.getRevenue(),
+                revs
+            );
         }
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
 
     public static ArrayList<Product> loadProducts() {
         ArrayList<Product> products = new ArrayList<>();
