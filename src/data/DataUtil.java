@@ -5,7 +5,9 @@ import model.Profile;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DataUtil {
@@ -15,7 +17,15 @@ public class DataUtil {
     public static void saveProducts(ArrayList<Product> products) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(PRODUCT_FILE))) {
             for (Product p : products) {
-                writer.println(p.getName() + "," + p.getPrice() + "," + p.getQuantity());
+                String revs = String.join(";", p.getReviews());
+                writer.printf("%s,%.2f,%d,%d,%.2f,%s%n",
+                    p.getName(),
+                    p.getPrice(),
+                    p.getQuantity(),
+                    p.getUnitsSold(),
+                    p.getRevenue(),
+                    revs
+                );
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -27,8 +37,23 @@ public class DataUtil {
         try (BufferedReader reader = new BufferedReader(new FileReader(PRODUCT_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                products.add(new Product(parts[0], Double.parseDouble(parts[1]), Integer.parseInt(parts[2])));
+                String[] parts = line.split(",", 6);
+                String name    = parts[0];
+                double price   = Double.parseDouble(parts[1]);
+                int qty        = Integer.parseInt(parts[2]);
+                int sold       = Integer.parseInt(parts[3]);
+                double revenue = Double.parseDouble(parts[4]);
+                ArrayList<String> revs = new ArrayList<>();
+                if (parts.length == 6 && !parts[5].isEmpty()) {
+                    revs = new ArrayList<>(Arrays.asList(parts[5].split(";")));
+                }
+
+                Product p = new Product(name, price, qty);
+                for (int i = 0; i < sold; i++) p.recordSale();
+                p.setQuantity(qty);
+                for (String r : revs) p.addReviewRaw(r);
+
+                products.add(p);
             }
         } catch (IOException e) {
             e.printStackTrace();

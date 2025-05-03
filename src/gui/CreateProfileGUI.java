@@ -1,12 +1,16 @@
 package gui;
 
-import manager.ProfileManager;
-
 import javax.swing.*;
 import java.awt.*;
+import manager.ProfileManager;
+import manager.ProductManager;
 
 public class CreateProfileGUI extends JFrame {
-    public CreateProfileGUI(ProfileManager profileManager) {
+    private ProductManager productManager;
+
+    public CreateProfileGUI(ProfileManager profileManager, ProductManager productManager) {
+        this.productManager = productManager;
+
         setTitle("Create Profile");
         setSize(300, 300);
         setLocationRelativeTo(null);
@@ -23,19 +27,15 @@ public class CreateProfileGUI extends JFrame {
             String phone = phoneField.getText();
             String password = new String(passwordField.getPassword());
             profileManager.createProfile(username, name, phone, password);
-            new BuyerLoginGUI(profileManager);
+            new BuyerLoginGUI(profileManager, productManager);
             dispose();
         });
 
         setLayout(new GridLayout(5, 2));
-        add(new JLabel("Username:"));
-        add(usernameField);
-        add(new JLabel("Name:"));
-        add(nameField);
-        add(new JLabel("Phone:"));
-        add(phoneField);
-        add(new JLabel("Password:"));
-        add(passwordField);
+        add(new JLabel("Username:")); add(usernameField);
+        add(new JLabel("Name:"));     add(nameField);
+        add(new JLabel("Phone:"));    add(phoneField);
+        add(new JLabel("Password:")); add(passwordField);
         add(submit);
 
         setVisible(true);

@@ -1,36 +1,47 @@
 package gui;
 
-import manager.ProfileManager;
-
 import javax.swing.*;
 import java.awt.*;
+import manager.ProfileManager;
+import manager.ProductManager;
 
 public class MainGUI extends JFrame {
+    private final ProfileManager profileMgr;
+    private final ProductManager productMgr;
+
     public MainGUI() {
-        setTitle("Marketplace - Main Menu");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 200);
+        this(new ProfileManager(), new ProductManager());
+    }
+
+    public MainGUI(ProfileManager pm, ProductManager pr) {
+        super("Marketplace - Main Menu");
+        this.profileMgr = pm;
+        this.productMgr = pr;
+        initUI();
+    }
+
+    private void initUI() {
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(300,200);
         setLocationRelativeTo(null);
 
-        JButton buyerButton = new JButton("Buyer");
-        JButton sellerButton = new JButton("Seller");
+        JButton buyerBtn  = new JButton("Buyer");
+        JButton sellerBtn = new JButton("Seller");
 
-        buyerButton.addActionListener(e -> {
-            ProfileManager sharedManager = new ProfileManager();
-            new BuyerLoginGUI(sharedManager);
+        buyerBtn.addActionListener(e -> {
+            new BuyerLoginGUI(profileMgr, productMgr);
+            dispose();
+        });
+        sellerBtn.addActionListener(e -> {
+            new SellerGUI(profileMgr, productMgr);
             dispose();
         });
 
-        sellerButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "Seller flow coming next!");
-        });
+        JPanel p = new JPanel(new GridLayout(2,1,10,10));
+        p.add(buyerBtn);
+        p.add(sellerBtn);
+        add(p);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(2, 1, 10, 10));
-        panel.add(buyerButton);
-        panel.add(sellerButton);
-
-        add(panel);
         setVisible(true);
     }
 }

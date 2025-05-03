@@ -29,7 +29,7 @@ public class MyProfileGUI extends JFrame {
 
         deleteButton.addActionListener(e -> {
             profileManager.deleteProfile(username);
-            new BuyerLoginGUI(profileManager);
+            new BuyerLoginGUI(profileManager, productManager);
             dispose();
         });
 

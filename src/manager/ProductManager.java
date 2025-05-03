@@ -31,18 +31,19 @@ public class ProductManager {
     public boolean reduceQuantity(String productName) {
         for (Product p : products) {
             if (p.getName().equals(productName) && p.getQuantity() > 0) {
-                p.setQuantity(p.getQuantity() - 1);
+                p.recordSale();
                 DataUtil.saveProducts(products);
                 return true;
             }
         }
         return false;
     }
+    
 
     public boolean increaseQuantity(String productName) {
         for (Product p : products) {
             if (p.getName().equals(productName)) {
-                p.setQuantity(p.getQuantity() + 1);
+                p.recordReturn();
                 DataUtil.saveProducts(products);
                 return true;
             }

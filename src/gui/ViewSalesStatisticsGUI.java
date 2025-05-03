@@ -1,37 +1,36 @@
+package gui;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import manager.ProductManager;
+import model.Product;
 import java.awt.*;
 import java.util.Collection;
 
 public class ViewSalesStatisticsGUI extends JFrame {
-    private JTable table;
-    public ViewSalesStatisticsGUI() {
+    private ProductManager productManager;
+
+    public ViewSalesStatisticsGUI(ProductManager productManager) {
         super("Sales Statistics");
+        this.productManager = productManager;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        String[] columns = {
-            "Product Name",
-            "Number Sold",
-            "Revenue"
-        };
+        setSize(400,200);
+
+        String[] columns = {"Product Name","Number Sold","Revenue"};
         Object[][] data = fetchData();
-        DefaultTableModel model = new DefaultTableModel(data, columns);
-        table = new JTable(model);
-        JScrollPane scroll = new JScrollPane(table);
-        add(scroll, BorderLayout.CENTER);
-        setSize(400, 200);}
+        JTable table = new JTable(new DefaultTableModel(data, columns));
+        add(new JScrollPane(table), BorderLayout.CENTER);
+
+        setVisible(true);
+    }
 
     private Object[][] fetchData(){
-        Collection<Product> list = Product.listProducts();
+        Collection<Product> list = productManager.getProducts();
         Object[][] rows = new Object[list.size()][3];
-        int i = 0;
-        for (Product p : list){
-            rows[i++] = new Object[]{
-                p.getName(),
-                p.getUnitsSold(),
-                p.getRevenue()
-            };
+        int i=0;
+        for(Product p: list){
+            rows[i++] = new Object[]{p.getName(), p.getUnitsSold(), p.getRevenue()};
         }
         return rows;
     }
-
 }
