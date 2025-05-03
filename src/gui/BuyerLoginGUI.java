@@ -1,19 +1,18 @@
 package gui;
 
-import manager.ProductManager;
-import manager.ProfileManager;
-import model.Profile;
-
 import javax.swing.*;
 import java.awt.*;
+import model.Profile;
+import manager.ProfileManager;
+import manager.ProductManager;
 
 public class BuyerLoginGUI extends JFrame {
     private ProfileManager profileManager;
     private ProductManager productManager;
 
-    public BuyerLoginGUI(ProfileManager profileManager) {
+    public BuyerLoginGUI(ProfileManager profileManager, ProductManager productManager) {
         this.profileManager = profileManager;
-        this.productManager = new ProductManager();
+        this.productManager = productManager;
 
         setTitle("Buyer Login");
         setSize(350, 250);
@@ -26,7 +25,7 @@ public class BuyerLoginGUI extends JFrame {
         JPasswordField passwordField = new JPasswordField(15);
         JButton loginButton = new JButton("Login");
         JButton createButton = new JButton("Create Profile");
-
+        JButton backButton   = new JButton("Back to Main Menu");
         loginButton.addActionListener(e -> {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
@@ -44,10 +43,13 @@ public class BuyerLoginGUI extends JFrame {
         });
 
         createButton.addActionListener(e -> {
-            new CreateProfileGUI(profileManager);
+            new CreateProfileGUI(profileManager, productManager);
             dispose();
         });
-
+        backButton.addActionListener(e -> {
+            new MainGUI(profileManager, productManager);
+            dispose();
+        });
         JPanel panel = new JPanel(new GridLayout(6, 1));
         panel.add(usernameLabel);
         panel.add(usernameField);
@@ -55,7 +57,7 @@ public class BuyerLoginGUI extends JFrame {
         panel.add(passwordField);
         panel.add(loginButton);
         panel.add(createButton);
-
+        panel.add(backButton);
         add(panel);
         setVisible(true);
     }

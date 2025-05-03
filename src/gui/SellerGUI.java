@@ -1,85 +1,68 @@
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+package gui;
+
+import javax.swing.*;
+import java.awt.event.*;
+import manager.ProductManager;
+
+import manager.ProfileManager;
+import manager.ProductManager;
 
 public class SellerGUI extends JFrame {
-	JPanel contentPane;
-	JButton btnUploadProducts;
-	JButton btnModifyProducts;
-	JButton btnViewSales;
-	JButton btnRespondComments;
-	JButton btnExit;
-	public SellerGUI() {
-		super("Seller Dashboard");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 550, 400);
-		contentPane = new JPanel();
+    private final ProfileManager profileManager;
+    private final ProductManager productManager;
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		btnUploadProducts = new JButton("Upload New Products");
-		btnUploadProducts.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				openUploadProducts();
-			}
-		});
-		btnUploadProducts.setBounds(159,  35, 200, 50);
-		contentPane.add(btnUploadProducts);
+    public SellerGUI(ProfileManager pm, ProductManager pr) {
+        super("Seller Dashboard");
+        this.profileManager = pm;
+        this.productManager = pr;
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setBounds(100, 100, 550, 400);
+        JPanel contentPane = new JPanel();
+        setContentPane(contentPane);
+        contentPane.setLayout(null);
 
-		btnModifyProducts = new JButton("Modify Products");
-		btnModifyProducts.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				modifyProducts();
-			}
-		});
-		btnModifyProducts.setBounds(159,  95, 200, 50);
-		contentPane.add(btnModifyProducts);
+        JButton btnUpload = new JButton("Upload New Products");
+        btnUpload.setBounds(159, 35, 200, 50);
+        btnUpload.addActionListener(e -> openUploadProducts());
+        contentPane.add(btnUpload);
 
-		btnViewSales = new JButton("View Sales Statistics");
-		btnViewSales.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				viewSalesStatistics();
-			}
-		});
-		btnViewSales.setBounds(159, 155, 200, 50);
-		contentPane.add(btnViewSales);
-		
-		btnRespondComments = new JButton("Respond to Comments");
-		btnRespondComments.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				respondComments();
-			}
-		});
-		btnRespondComments.setBounds(159, 215, 200, 50);
-		contentPane.add(btnRespondComments);
-		
-		btnExit = new JButton("Exit");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(ABORT);
-			}
-		});
-		btnExit.setBounds(159, 275, 200, 50);
-		contentPane.add(btnExit);
-	}
-	
+        JButton btnModify = new JButton("Modify Products");
+        btnModify.setBounds(159, 95, 200, 50);
+        btnModify.addActionListener(e -> modifyProducts());
+        contentPane.add(btnModify);
+
+        JButton btnView = new JButton("View Sales Statistics");
+        btnView.setBounds(159, 155, 200, 50);
+        btnView.addActionListener(e -> viewSalesStatistics());
+        contentPane.add(btnView);
+
+        JButton btnRespond = new JButton("Respond to Comments");
+        btnRespond.setBounds(159, 215, 200, 50);
+        btnRespond.addActionListener(e -> respondComments());
+        contentPane.add(btnRespond);
+
+		JButton btnExit = new JButton("Return to Main Menu");
+        btnExit.setBounds(159, 275, 200, 50);
+        btnExit.addActionListener(e -> {
+            new MainGUI(profileManager, productManager);
+            dispose();
+        });
+        add(btnExit);
+
+        setVisible(true);
+    
+    }
+
     private void openUploadProducts() {
-        UploadProductsGUI upg = new UploadProductsGUI();
-        upg.setVisible(true);
+        new UploadProductsGUI(productManager).setVisible(true);
     }
-	private void viewSalesStatistics() {
-        ViewSalesStatisticsGUI vssg = new ViewSalesStatisticsGUI();
-        vssg.setVisible(true);
+    private void modifyProducts() {
+        new ModifyProductsGUI(productManager).setVisible(true);
     }
-	private void modifyProducts() {
-        ModifyProductsGUI mpg = new ModifyProductsGUI();
-        mpg.setVisible(true);
+    private void viewSalesStatistics() {
+        new ViewSalesStatisticsGUI(productManager).setVisible(true);
     }
-	private void respondComments() {
-        RespondCommentsGUI rcg = new RespondCommentsGUI();
-        rcg.setVisible(true);
+    private void respondComments() {
+        new RespondCommentsGUI(productManager).setVisible(true);
     }
 }

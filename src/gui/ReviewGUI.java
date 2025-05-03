@@ -17,7 +17,6 @@ public class ReviewGUI extends JFrame {
     JLabel label = new JLabel("Write your review:");
     JTextArea reviewArea = new JTextArea(10, 30);
 
-    // Dropdown to select product
     JLabel productLabel = new JLabel("Select product:");
     JComboBox<String> productDropdown = new JComboBox<>();
     ArrayList<Product> products = productManager.getProducts();

@@ -1,71 +1,67 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import data.DataUtil;
+import java.util.*;
 
 public class Product {
     private String name;
     private double price;
-    private int quantity;
+    private int    quantity;
+    private int    unitsSold;
+    private double revenue;
     private List<String> reviews = new ArrayList<>();
 
     public Product(String name, double price, int quantity) {
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
+        this.name       = name;
+        this.price      = price;
+        this.quantity   = quantity;
+        this.unitsSold  = 0;
+        this.revenue    = 0.0;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getName()            { return name; }
+    public void   setName(String n)    { name = n; }
+    public double getPrice()           { return price; }
+    public void   setPrice(double p)   { price = p; }
+    public int    getQuantity()        { return quantity; }
+    public void   setQuantity(int q)   { quantity = q; }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public void addReview(String review) {
-        reviews.add(review);
-    }
-
-    public List<String> getReviews() {
-        return reviews;
-    }
+    public int    getUnitsSold()       { return unitsSold; }
+    public double getRevenue()         { return revenue; }
+    public List<String> getReviews()   { return Collections.unmodifiableList(reviews); }
 
     public String getLatestReview() {
-        if (reviews.isEmpty())
-            return "";
-        return reviews.get(reviews.size() - 1);
+        return reviews.isEmpty() ? "" : reviews.get(reviews.size() - 1);
     }
 
-    public String getAllReviewsAsString() {
-        return String.join(" | ", reviews);
+
+
+    public void recordSale() {
+        quantity--;
+        unitsSold++;
+        revenue += price;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-        Product product = (Product) obj;
-        return name.equals(product.name);
+    public void recordReturn() {
+        quantity++;
+        if (unitsSold > 0) {
+            unitsSold--;
+            revenue -= price;
+        }
+    }
+
+
+    public void addReview(String review) {
+        reviews.add("Buyer: " + review);
+    }
+
+    public void addResponse(String response) {
+        if (!reviews.isEmpty()) {
+            reviews.set(reviews.size() - 1,
+                reviews.get(reviews.size() - 1) + "\nSeller: " + response);
+        }
+    }
+    public void addReviewRaw(String review) {
+        this.reviews.add(review);
     }
 }
