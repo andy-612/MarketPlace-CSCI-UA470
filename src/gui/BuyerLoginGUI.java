@@ -27,28 +27,14 @@ public class BuyerLoginGUI extends JFrame {
         JButton createButton = new JButton("Create Profile");
         JButton backButton   = new JButton("Back to Main Menu");
         loginButton.addActionListener(e -> {
-            String username = usernameField.getText();
-            String password = new String(passwordField.getPassword());
-            if (profileManager.profileExists(username)) {
-                Profile profile = profileManager.getProfile(username);
-                if (profile.getPassword().equals(password)) {
-                    new MarketPlaceGUI(username, profileManager, productManager);
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Incorrect password.");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Profile not found.");
-            }
+            btnLogin_click(usernameField, passwordField);
         });
 
         createButton.addActionListener(e -> {
-            new CreateProfileGUI(profileManager, productManager);
-            dispose();
+            btnCreate_click();
         });
         backButton.addActionListener(e -> {
-            new MainGUI(profileManager, productManager);
-            dispose();
+            btnBack_click();
         });
         JPanel panel = new JPanel(new GridLayout(6, 1));
         panel.add(usernameLabel);
@@ -61,4 +47,32 @@ public class BuyerLoginGUI extends JFrame {
         add(panel);
         setVisible(true);
     }
+
+    public void btnLogin_click(JTextField usernameField, JPasswordField passwordField){
+        String username = usernameField.getText();
+        String password = new String(passwordField.getPassword());
+        if (profileManager.profileExists(username)) {
+            Profile profile = profileManager.getProfile(username);
+            if (profile.getPassword().equals(password)) {
+                new MarketPlaceGUI(username, profileManager, productManager);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Incorrect password.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Profile not found.");
+        }
+    }
+
+    public void btnCreate_click(){
+        new CreateProfileGUI(profileManager, productManager);
+        dispose();
+    }
+
+    public void btnBack_click(){
+        new MainGUI(profileManager, productManager);
+        dispose();
+    }
+
+
 }

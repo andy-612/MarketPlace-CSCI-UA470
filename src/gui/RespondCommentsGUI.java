@@ -2,9 +2,7 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import manager.ProductManager;
-import manager.ProfileManager;
 import model.Product;
 import data.DataUtil;
 
