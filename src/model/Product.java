@@ -31,7 +31,16 @@ public class Product {
     public List<String> getReviews()   { return Collections.unmodifiableList(reviews); }
 
     public String getLatestReview() {
-        return reviews.isEmpty() ? "" : reviews.get(reviews.size() - 1);
+        if(reviews.isEmpty()){
+            return "";
+        }else{
+            String temp = reviews.get(reviews.size() - 1);
+            temp = temp.replaceAll("<p>", "");
+            return temp;
+        }
+
+
+        // return reviews.isEmpty() ? "" : reviews.get(reviews.size() - 1);
     }
 
 
@@ -52,13 +61,16 @@ public class Product {
 
 
     public void addReview(String review) {
-        reviews.add("Buyer: " + review);
+        reviews.add("<p>Buyer: " + review + "<p>");
     }
 
-    public void addResponse(String response) {
+    public void addResponse(String response, String comment) {
         if (!reviews.isEmpty()) {
-            reviews.set(reviews.size() - 1,
-                reviews.get(reviews.size() - 1) + "\nSeller: " + response);
+            int index = reviews.indexOf(comment);
+            String temp = comment + "<p>Seller: " + response + "<p>";
+            reviews.set(index, temp);
+            // reviews.set(reviews.size() - 1,
+            //     reviews.get(reviews.size() - 1) + "\nSeller: " + response);
         }
     }
     public void addReviewRaw(String review) {

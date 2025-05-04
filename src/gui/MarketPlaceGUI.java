@@ -5,7 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 import manager.ProfileManager;
 import manager.ProductManager;
 import model.Product;
@@ -38,7 +38,12 @@ public class MarketPlaceGUI extends JFrame {
 
     private void buildUI() {
         String[] columns = { "Name", "Price", "Quantity", "Review" };
-        DefaultTableModel tableModel = new DefaultTableModel(columns, 0);
+        DefaultTableModel tableModel = new DefaultTableModel(columns, 0){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
         productTable = new JTable(tableModel);
         updateTable(tableModel);
 

@@ -48,7 +48,7 @@ public class SellerGUI extends JFrame {
             dispose();
         });
         add(btnExit);
-
+        setLocationRelativeTo(null);
         setVisible(true);
     
     }
