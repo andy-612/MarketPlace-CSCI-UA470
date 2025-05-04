@@ -20,7 +20,7 @@ public class ViewSalesStatisticsGUI extends JFrame {
         Object[][] data = fetchData();
         JTable table = new JTable(new DefaultTableModel(data, columns));
         add(new JScrollPane(table), BorderLayout.CENTER);
-
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 

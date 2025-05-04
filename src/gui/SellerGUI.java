@@ -1,11 +1,9 @@
 package gui;
 
 import javax.swing.*;
-import java.awt.event.*;
 import manager.ProductManager;
 
 import manager.ProfileManager;
-import manager.ProductManager;
 
 public class SellerGUI extends JFrame {
     private final ProfileManager profileManager;

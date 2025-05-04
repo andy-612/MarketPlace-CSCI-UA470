@@ -4,7 +4,6 @@ import model.Profile;
 import model.Product;
 import data.DataUtil;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class ProfileManager {
