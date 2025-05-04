@@ -1,12 +1,15 @@
 package gui;
 
 import javax.swing.*;
+
+import data.DataUtil;
+
 import java.awt.*;
 import manager.ProfileManager;
 import manager.ProductManager;
 
 public class CreateProfileGUI extends JFrame {
-    private ProductManager productManager;
+    protected ProductManager productManager;
 
     public CreateProfileGUI(ProfileManager profileManager, ProductManager productManager) {
         this.productManager = productManager;
@@ -20,6 +23,7 @@ public class CreateProfileGUI extends JFrame {
         JTextField phoneField = new JTextField();
         JPasswordField passwordField = new JPasswordField();
         JButton submit = new JButton("Submit");
+        JButton cancel = new JButton("Cancel");
 
         submit.addActionListener(e -> {
             String username = usernameField.getText();
@@ -31,12 +35,18 @@ public class CreateProfileGUI extends JFrame {
             dispose();
         });
 
+        cancel.addActionListener(e->{
+            new BuyerLoginGUI(profileManager, productManager);
+            dispose();
+        });
+
         setLayout(new GridLayout(5, 2));
         add(new JLabel("Username:")); add(usernameField);
         add(new JLabel("Name:"));     add(nameField);
         add(new JLabel("Phone:"));    add(phoneField);
         add(new JLabel("Password:")); add(passwordField);
         add(submit);
+        add(cancel);
 
         setVisible(true);
     }

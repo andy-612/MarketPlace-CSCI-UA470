@@ -22,7 +22,12 @@ public class ModifyProductsGUI extends JFrame {
         setContentPane(contentPane);
 
         String[] cols = {"Product Name","Price","Quantity"};
-        model = new DefaultTableModel(fetchData(), cols);
+        model = new DefaultTableModel(fetchData(), cols){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return false;
+            }
+        };
         table = new JTable(model);
         JScrollPane scroll = new JScrollPane(table);
         scroll.setBounds(20,20,460,220);

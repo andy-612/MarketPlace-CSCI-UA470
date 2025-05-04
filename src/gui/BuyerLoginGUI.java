@@ -7,8 +7,8 @@ import manager.ProfileManager;
 import manager.ProductManager;
 
 public class BuyerLoginGUI extends JFrame {
-    private ProfileManager profileManager;
-    private ProductManager productManager;
+    protected ProfileManager profileManager;
+    protected ProductManager productManager;
 
     public BuyerLoginGUI(ProfileManager profileManager, ProductManager productManager) {
         this.profileManager = profileManager;

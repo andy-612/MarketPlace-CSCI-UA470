@@ -2,7 +2,7 @@ package gui;
 
 import manager.ProductManager;
 import manager.ProfileManager;
-import model.Profile;
+// import model.Profile;
 
 import javax.swing.*;
 import java.awt.*;
