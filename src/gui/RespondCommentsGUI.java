@@ -6,14 +6,6 @@ import manager.ProductManager;
 import model.Product;
 import data.DataUtil;
 
-
-
-
-
-
-
-
-
 public class RespondCommentsGUI extends JFrame {
     private ProductManager productManager;
     private JPanel commentsPanel;
