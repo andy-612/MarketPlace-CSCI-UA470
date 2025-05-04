@@ -14,22 +14,22 @@ public class ViewSalesStatisticsGUI extends JFrame {
         super("Sales Statistics");
         this.productManager = productManager;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(400,200);
+        setSize(400, 200);
 
-        String[] columns = {"Product Name","Number Sold","Revenue"};
+        String[] columns = { "Product Name", "Number Sold", "Revenue" };
         Object[][] data = fetchData();
         JTable table = new JTable(new DefaultTableModel(data, columns));
         add(new JScrollPane(table), BorderLayout.CENTER);
-
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
-    private Object[][] fetchData(){
+    private Object[][] fetchData() {
         Collection<Product> list = productManager.getProducts();
         Object[][] rows = new Object[list.size()][3];
-        int i=0;
-        for(Product p: list){
-            rows[i++] = new Object[]{p.getName(), p.getUnitsSold(), p.getRevenue()};
+        int i = 0;
+        for (Product p : list) {
+            rows[i++] = new Object[] { p.getName(), p.getUnitsSold(), p.getRevenue() };
         }
         return rows;
     }
