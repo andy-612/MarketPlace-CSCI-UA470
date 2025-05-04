@@ -1,11 +1,9 @@
 package gui;
 
 import javax.swing.*;
-import java.awt.event.*;
 import manager.ProductManager;
 
 import manager.ProfileManager;
-import manager.ProductManager;
 
 public class SellerGUI extends JFrame {
     private final ProfileManager profileManager;
@@ -53,16 +51,16 @@ public class SellerGUI extends JFrame {
     
     }
 
-    private void openUploadProducts() {
+    public void openUploadProducts() {
         new UploadProductsGUI(productManager).setVisible(true);
     }
-    private void modifyProducts() {
+    public void modifyProducts() {
         new ModifyProductsGUI(productManager).setVisible(true);
     }
-    private void viewSalesStatistics() {
+    public void viewSalesStatistics() {
         new ViewSalesStatisticsGUI(productManager).setVisible(true);
     }
-    private void respondComments() {
+    public void respondComments() {
         new RespondCommentsGUI(productManager).setVisible(true);
     }
 }

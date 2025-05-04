@@ -29,12 +29,10 @@ public class MainGUI extends JFrame {
         JButton sellerBtn = new JButton("Seller");
 
         buyerBtn.addActionListener(e -> {
-            new BuyerLoginGUI(profileMgr, productMgr);
-            dispose();
+            btnBuyer_click();
         });
         sellerBtn.addActionListener(e -> {
-            new SellerGUI(profileMgr, productMgr);
-            dispose();
+            btnSeller_click();
         });
 
         JPanel p = new JPanel(new GridLayout(2,1,10,10));
@@ -43,5 +41,15 @@ public class MainGUI extends JFrame {
         add(p);
 
         setVisible(true);
+    }
+
+    public void btnBuyer_click(){
+        new BuyerLoginGUI(profileMgr, productMgr);
+        dispose();
+    }
+
+    public void btnSeller_click(){
+        new SellerGUI(profileMgr, productMgr);
+        dispose();
     }
 }
