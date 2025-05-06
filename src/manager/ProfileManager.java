@@ -2,21 +2,13 @@ package manager;
 
 import model.Profile;
 import model.Product;
-
 import java.util.Map;
-import model.Product;
-import model.Profile;
-
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
+import java.util.HashMap;
 
 public class ProfileManager {
-    private static final String DATA_DIR     = "data";
+    private static final String DATA_DIR = "data";
     private static final String PROFILE_FILE = DATA_DIR + File.separator + "profiles.txt";
     private Map<String, Profile> profiles;
 
@@ -36,18 +28,16 @@ public class ProfileManager {
         this.profiles = loadProfiles();
     }
 
-
-
-
-
     public void saveProfiles(Map<String, Profile> profiles) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(PROFILE_FILE))) {
             for (Profile p : profiles.values()) {
                 String input = p.getPurchasedProducts().toString();
-                if(input != ""){
-                    writer.println(p.getUsername() + ";" + p.getName() + ";" + p.getPhoneNumber() + ";" + p.getPassword() + ";" + input);
-                }else{
-                    writer.println(p.getUsername() + ";" + p.getName() + ";" + p.getPhoneNumber() + ";" + p.getPassword());
+                if (input != "") {
+                    writer.println(p.getUsername() + ";" + p.getName() + ";" + p.getPhoneNumber() + ";"
+                            + p.getPassword() + ";" + input);
+                } else {
+                    writer.println(
+                            p.getUsername() + ";" + p.getName() + ";" + p.getPhoneNumber() + ";" + p.getPassword());
                 }
             }
         } catch (IOException e) {
@@ -63,8 +53,8 @@ public class ProfileManager {
                 String[] parts = line.split(";");
                 if (parts.length == 4) {
                     profiles.put(parts[0], new Profile(parts[0], parts[1], parts[2], parts[3]));
-                }else if(parts.length == 5){
-            
+                } else if (parts.length == 5) {
+
                     Map<String, Integer> input = convertStringToMap(parts[4]);
                     profiles.put(parts[0], new Profile(parts[0], parts[1], parts[2], parts[3], input));
                 }
@@ -91,13 +81,11 @@ public class ProfileManager {
             if (parts.length == 2) {
                 String key = parts[0].trim();
                 Integer value = Integer.valueOf(parts[1].trim());
-                 map.put(key, value);
+                map.put(key, value);
             }
         }
         return map;
     }
-
-
 
     public Profile getProfile(String username) {
         return profiles.get(username);

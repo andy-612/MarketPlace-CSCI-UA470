@@ -1,9 +1,8 @@
 package gui;
+
 import javax.swing.*;
 import java.awt.*;
 import manager.ProfileManager;
-import model.Profile;
-import manager.ProductManager;
 
 public class CreateProfileGUI extends JFrame {
 
@@ -27,22 +26,27 @@ public class CreateProfileGUI extends JFrame {
             btnSubmit_click(usernameField, nameField, phoneField, passwordField);
         });
 
-        cancel.addActionListener(e->{
+        cancel.addActionListener(e -> {
             btnCancel_click();
         });
 
         setLayout(new GridLayout(5, 2));
-        add(lblusername); add(usernameField);
-        add(lblname);     add(nameField);
-        add(lblphone);    add(phoneField);
-        add(lblpassword); add(passwordField);
+        add(lblusername);
+        add(usernameField);
+        add(lblname);
+        add(nameField);
+        add(lblphone);
+        add(phoneField);
+        add(lblpassword);
+        add(passwordField);
         add(submit);
         add(cancel);
 
         setVisible(true);
     }
 
-    public void btnSubmit_click(JTextField usernameField, JTextField nameField, JTextField phoneField, JPasswordField passwordField){
+    public void btnSubmit_click(JTextField usernameField, JTextField nameField, JTextField phoneField,
+            JPasswordField passwordField) {
         String username = usernameField.getText();
         String name = nameField.getText();
         String phone = phoneField.getText();
@@ -54,7 +58,7 @@ public class CreateProfileGUI extends JFrame {
         dispose();
     }
 
-    public void btnCancel_click(){
+    public void btnCancel_click() {
         new BuyerLoginGUI();
         dispose();
     }

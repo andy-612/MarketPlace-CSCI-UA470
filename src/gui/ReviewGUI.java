@@ -57,26 +57,26 @@ public class ReviewGUI extends JFrame {
     setVisible(true);
   }
 
-
-  public void btnSubmit_click(JComboBox<String> productDropdown, JTextArea reviewArea, ArrayList<Product> products, ProductManager productManager, String username){
+  public void btnSubmit_click(JComboBox<String> productDropdown, JTextArea reviewArea, ArrayList<Product> products,
+      ProductManager productManager, String username) {
     String selectedProduct = (String) productDropdown.getSelectedItem();
-      String review = reviewArea.getText();
+    String review = reviewArea.getText();
 
-      for (Product p : products) {
-        if (p.getName().equals(selectedProduct)) {
-          p.addReview(review);
-          break;
-        }
+    for (Product p : products) {
+      if (p.getName().equals(selectedProduct)) {
+        p.addReview(review);
+        break;
       }
+    }
 
-      productManager.saveProducts(products);
+    productManager.saveProducts(products);
 
-      JOptionPane.showMessageDialog(this, "Review submitted!");
-      new MarketPlaceGUI(username);
-      dispose();
+    JOptionPane.showMessageDialog(this, "Review submitted!");
+    new MarketPlaceGUI(username);
+    dispose();
   }
 
-  public void btnBack_click(String username){
+  public void btnBack_click(String username) {
     new MarketPlaceGUI(username);
     dispose();
   }

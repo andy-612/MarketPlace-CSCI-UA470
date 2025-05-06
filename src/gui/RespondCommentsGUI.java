@@ -22,19 +22,18 @@ public class RespondCommentsGUI extends JFrame {
 
         ProductManager productManager = new ProductManager();
         ArrayList<Product> products = productManager.getProducts();
-        for(Product p: products){
-            for(String review: p.getReviews()){
+        for (Product p : products) {
+            for (String review : p.getReviews()) {
                 addCommentRow(p, review, products);
                 flag = true;
             }
         }
 
-        if(flag == false){
+        if (flag == false) {
             JPanel temp = new JPanel();
             temp.add(new JLabel("<html><center>Nothing is here</center></html>"));
             commentsPanel.add(temp);
         }
-
 
         JButton btnExit = new JButton("Return to Main Menu");
         btnExit.addActionListener(e -> {
@@ -52,7 +51,7 @@ public class RespondCommentsGUI extends JFrame {
         setVisible(true);
     }
 
-    private void addCommentRow(Product p, String review, ArrayList<Product> products){
+    private void addCommentRow(Product p, String review, ArrayList<Product> products) {
         String temp = review.replaceAll("Buyer:", p.getName() + " buyer: ");
         temp = temp.replaceAll("\n", "<p>");
         JLabel lbl = new JLabel("<html><body style = 'width:200px'>" + temp + "</body></html>");
@@ -60,7 +59,8 @@ public class RespondCommentsGUI extends JFrame {
         JPanel action = new JPanel();
         JTextField responseField = new JTextField(25);
         JButton btnRespond = new JButton("Respond");
-        action.add(responseField); action.add(btnRespond);
+        action.add(responseField);
+        action.add(btnRespond);
         commentsPanel.add(action);
 
         btnRespond.addActionListener(e -> {

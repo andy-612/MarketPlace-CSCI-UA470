@@ -19,7 +19,8 @@ public class Profile implements Serializable {
         this.purchasedProducts = new HashMap<>();
     }
 
-    public Profile(String username, String name, String phoneNumber, String password, Map<String, Integer> purchasedProducts) {
+    public Profile(String username, String name, String phoneNumber, String password,
+            Map<String, Integer> purchasedProducts) {
         this.username = username;
         this.name = name;
         this.phoneNumber = phoneNumber;

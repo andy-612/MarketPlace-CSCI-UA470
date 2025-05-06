@@ -1,9 +1,6 @@
 package gui;
 
-import manager.ProductManager;
 import manager.ProfileManager;
-// import model.Profile;
-import model.Product;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,19 +46,20 @@ public class MyProfileGUI extends JFrame {
         add(panel);
         setVisible(true);
     }
-    
-    public void onSaveClick(ProfileManager profileManager, String username, JTextField nameField, JTextField phoneField){
+
+    public void onSaveClick(ProfileManager profileManager, String username, JTextField nameField,
+            JTextField phoneField) {
         profileManager.updateProfile(username, nameField.getText(), phoneField.getText());
         JOptionPane.showMessageDialog(this, "Changes saved.");
     }
 
-    public void onDeleteClick(ProfileManager profileManager, String username){
+    public void onDeleteClick(ProfileManager profileManager, String username) {
         profileManager.deleteProfile(username);
         new BuyerLoginGUI();
-        dispose(); 
+        dispose();
     }
 
-    public void onBackClick(String username){
+    public void onBackClick(String username) {
         new MarketPlaceGUI(username);
         dispose();
     }
