@@ -3,16 +3,19 @@ package gui;
 import manager.ProductManager;
 import manager.ProfileManager;
 // import model.Profile;
+import model.Product;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MyProfileGUI extends JFrame {
-    public MyProfileGUI(String username, ProfileManager profileManager, ProductManager productManager) {
+    public MyProfileGUI(String username) {
         setTitle("My Profile - " + username);
         setSize(400, 200);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        ProfileManager profileManager = new ProfileManager();
 
         model.Profile profile = profileManager.getProfile(username);
         JTextField nameField = new JTextField(profile.getName());
@@ -23,19 +26,15 @@ public class MyProfileGUI extends JFrame {
         JButton backButton = new JButton("Back");
 
         saveButton.addActionListener(e -> {
-            profileManager.updateProfile(username, nameField.getText(), phoneField.getText());
-            JOptionPane.showMessageDialog(this, "Changes saved.");
+            onSaveClick(profileManager, username, nameField, phoneField);
         });
 
         deleteButton.addActionListener(e -> {
-            profileManager.deleteProfile(username);
-            new BuyerLoginGUI(profileManager, productManager);
-            dispose();
+            onDeleteClick(profileManager, username);
         });
 
         backButton.addActionListener(e -> {
-            new MarketPlaceGUI(username, profileManager, productManager);
-            dispose();
+            onBackClick(username);
         });
 
         JPanel panel = new JPanel(new GridLayout(4, 2));
@@ -49,6 +48,22 @@ public class MyProfileGUI extends JFrame {
 
         add(panel);
         setVisible(true);
+    }
+    
+    public void onSaveClick(ProfileManager profileManager, String username, JTextField nameField, JTextField phoneField){
+        profileManager.updateProfile(username, nameField.getText(), phoneField.getText());
+        JOptionPane.showMessageDialog(this, "Changes saved.");
+    }
+
+    public void onDeleteClick(ProfileManager profileManager, String username){
+        profileManager.deleteProfile(username);
+        new BuyerLoginGUI();
+        dispose(); 
+    }
+
+    public void onBackClick(String username){
+        new MarketPlaceGUI(username);
+        dispose();
     }
 
 }

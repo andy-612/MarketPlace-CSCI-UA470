@@ -4,17 +4,14 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import manager.ProductManager;
 import model.Product;
-import data.DataUtil;
 import java.util.List;
 
 public class ModifyProductsGUI extends JFrame {
-    private ProductManager productManager;
     private JTable table;
     private DefaultTableModel model;
     private JTextField txtNewName, txtNewPrice, txtNewQuantity;
 
-    public ModifyProductsGUI(ProductManager productManager) {
-        this.productManager = productManager;
+    public ModifyProductsGUI() {
         setTitle("Modify Listings");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setBounds(100, 100, 520, 480);
@@ -65,11 +62,13 @@ public class ModifyProductsGUI extends JFrame {
         btnUpdate.setBounds(360, 260, 120, 30);
         btnUpdate.addActionListener(e -> {
             int r = table.getSelectedRow();
+
+            ProductManager productManager = new ProductManager();
             Product prod = productManager.getProducts().get(r);
             prod.setName(txtNewName.getText());
             prod.setPrice(Double.parseDouble(txtNewPrice.getText()));
             prod.setQuantity(Integer.parseInt(txtNewQuantity.getText()));
-            DataUtil.saveProducts(productManager.getProducts());
+            productManager.saveProducts(productManager.getProducts());
             model.setValueAt(prod.getName(), r, 0);
             model.setValueAt(prod.getPrice(), r, 1);
             model.setValueAt(prod.getQuantity(), r, 2);
@@ -86,9 +85,11 @@ public class ModifyProductsGUI extends JFrame {
                 return;
             }
 
+
+            ProductManager productManager = new ProductManager();
             Product prod = productManager.getProducts().get(r);
             productManager.getProducts().remove(prod);
-            DataUtil.saveProducts(productManager.getProducts());
+            productManager.saveProducts(productManager.getProducts());
 
             model.removeRow(r);
 
@@ -104,6 +105,7 @@ public class ModifyProductsGUI extends JFrame {
     }
 
     private Object[][] fetchData() {
+        ProductManager productManager = new ProductManager();
         List<Product> list = productManager.getProducts();
         Object[][] arr = new Object[list.size()][3];
         for (int i = 0; i < list.size(); i++) {

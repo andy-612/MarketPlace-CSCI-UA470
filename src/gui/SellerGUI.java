@@ -6,13 +6,9 @@ import manager.ProductManager;
 import manager.ProfileManager;
 
 public class SellerGUI extends JFrame {
-    private final ProfileManager profileManager;
-    private final ProductManager productManager;
 
-    public SellerGUI(ProfileManager pm, ProductManager pr) {
+    public SellerGUI() {
         super("Seller Dashboard");
-        this.profileManager = pm;
-        this.productManager = pr;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setBounds(100, 100, 550, 400);
         JPanel contentPane = new JPanel();
@@ -42,8 +38,7 @@ public class SellerGUI extends JFrame {
 		JButton btnExit = new JButton("Return to Main Menu");
         btnExit.setBounds(159, 275, 200, 50);
         btnExit.addActionListener(e -> {
-            new MainGUI(profileManager, productManager);
-            dispose();
+            exit_click();
         });
         add(btnExit);
         setLocationRelativeTo(null);
@@ -51,16 +46,21 @@ public class SellerGUI extends JFrame {
     
     }
 
+    public void exit_click(){
+        new MainGUI();
+        dispose();
+    }
+
     public void openUploadProducts() {
-        new UploadProductsGUI(productManager).setVisible(true);
+        new UploadProductsGUI().setVisible(true);
     }
     public void modifyProducts() {
-        new ModifyProductsGUI(productManager).setVisible(true);
+        new ModifyProductsGUI().setVisible(true);
     }
     public void viewSalesStatistics() {
-        new ViewSalesStatisticsGUI(productManager).setVisible(true);
+        new ViewSalesStatisticsGUI().setVisible(true);
     }
     public void respondComments() {
-        new RespondCommentsGUI(productManager).setVisible(true);
+        new RespondCommentsGUI().setVisible(true);
     }
 }

@@ -11,22 +11,19 @@ import manager.ProductManager;
 import model.Product;
 
 public class MarketPlaceGUI extends JFrame {
-    private final ProfileManager profileManager;
-    private final ProductManager productManager;
     private final String username;
     private JTable productTable;
 
-    public MarketPlaceGUI(String username, ProfileManager pm, ProductManager pr) {
+    public MarketPlaceGUI(String username) {
         super("Marketplace - Welcome, " + username);
         this.username = username;
-        this.profileManager = pm;
-        this.productManager = pr;
+
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                new MainGUI(profileManager, productManager);
+                new MainGUI();
             }
         });
 
@@ -87,6 +84,8 @@ public class MarketPlaceGUI extends JFrame {
 
     private void updateTable(DefaultTableModel model) {
         model.setRowCount(0);
+
+        ProductManager productManager = new ProductManager();
         for (Product p : productManager.getProducts()) {
             model.addRow(new Object[] {
                     p.getName(),
@@ -99,6 +98,9 @@ public class MarketPlaceGUI extends JFrame {
 
     public void onBuyClick() {
         int r = productTable.getSelectedRow();
+
+        ProductManager productManager = new ProductManager();
+        ProfileManager profileManager = new ProfileManager();
         if (r >= 0) {
             String name = productTable.getValueAt(r, 0).toString();
             if (productManager.reduceQuantity(name)) {
@@ -112,28 +114,33 @@ public class MarketPlaceGUI extends JFrame {
 
     public void onReturnClick() {
         int r = productTable.getSelectedRow();
+
+        ProductManager productManager = new ProductManager();
+        ProfileManager profileManager = new ProfileManager();
         if (r >= 0) {
             String name = productTable.getValueAt(r, 0).toString();
             if (profileManager.removePurchaseFromProfile(username, new Product(name, 0, 1))) {
                 productManager.increaseQuantity(name);
                 JOptionPane.showMessageDialog(this, "Return successful.");
                 updateTable((DefaultTableModel) productTable.getModel());
+            }else{
+                JOptionPane.showMessageDialog(this, "You have not purchased this product yet.");
             }
         }
     }
 
     public void onReviewClick() {
-        new ReviewGUI(username, productManager, profileManager);
+        new ReviewGUI(username);
         dispose();
     }
 
     public void onModifyProfileClick() {
-        new MyProfileGUI(username, profileManager, productManager);
+        new MyProfileGUI(username);
         dispose();
     }
 
     public void onLogoutClick() {
-        new MainGUI(profileManager, productManager);
+        new MainGUI();
         dispose();
     }
 

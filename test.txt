@@ -1,1 +1,1 @@
-something
+modified myprofileGui for arrow functions

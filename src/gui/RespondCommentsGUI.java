@@ -2,27 +2,29 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+
 import manager.ProductManager;
 import model.Product;
-import data.DataUtil;
 
 public class RespondCommentsGUI extends JFrame {
-    private ProductManager productManager;
     private JPanel commentsPanel;
 
-    public RespondCommentsGUI(ProductManager productManager) {
+    public RespondCommentsGUI() {
         super("Respond to Comments");
         setSize(new Dimension(450, 600));
-        this.productManager = productManager;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         commentsPanel = new JPanel();
         commentsPanel.setLayout(new BoxLayout(commentsPanel, BoxLayout.Y_AXIS));
 
         boolean flag = false;
-        for(Product p: productManager.getProducts()){
+
+        ProductManager productManager = new ProductManager();
+        ArrayList<Product> products = productManager.getProducts();
+        for(Product p: products){
             for(String review: p.getReviews()){
-                addCommentRow(p, review);
+                addCommentRow(p, review, products);
                 flag = true;
             }
         }
@@ -50,7 +52,7 @@ public class RespondCommentsGUI extends JFrame {
         setVisible(true);
     }
 
-    private void addCommentRow(Product p, String review){
+    private void addCommentRow(Product p, String review, ArrayList<Product> products){
         String temp = review.replaceAll("Buyer:", p.getName() + " buyer: ");
         temp = temp.replaceAll("\n", "<p>");
         JLabel lbl = new JLabel("<html><body style = 'width:200px'>" + temp + "</body></html>");
@@ -64,7 +66,8 @@ public class RespondCommentsGUI extends JFrame {
         btnRespond.addActionListener(e -> {
             String resp = responseField.getText();
             p.addResponse(resp, review);
-            DataUtil.saveProducts(productManager.getProducts());
+            ProductManager productManager = new ProductManager();
+            productManager.saveProducts(products);
             JOptionPane.showMessageDialog(this, "Comment Added!");
             dispose();
         });

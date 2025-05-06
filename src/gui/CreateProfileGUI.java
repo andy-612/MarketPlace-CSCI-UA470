@@ -2,16 +2,12 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import manager.ProfileManager;
+import model.Profile;
 import manager.ProductManager;
 
 public class CreateProfileGUI extends JFrame {
-    protected ProductManager productManager;
-    protected ProfileManager profileManager;
 
-    public CreateProfileGUI(ProfileManager profileManager, ProductManager productManager) {
-        this.productManager = productManager;
-        this.profileManager = profileManager;
-
+    public CreateProfileGUI() {
         setTitle("Create Profile");
         setSize(300, 300);
         setLocationRelativeTo(null);
@@ -51,13 +47,15 @@ public class CreateProfileGUI extends JFrame {
         String name = nameField.getText();
         String phone = phoneField.getText();
         String password = new String(passwordField.getPassword());
+
+        ProfileManager profileManager = new ProfileManager();
         profileManager.createProfile(username, name, phone, password);
-        new BuyerLoginGUI(profileManager, productManager);
+        new BuyerLoginGUI();
         dispose();
     }
 
     public void btnCancel_click(){
-        new BuyerLoginGUI(profileManager, productManager);
+        new BuyerLoginGUI();
         dispose();
     }
 }

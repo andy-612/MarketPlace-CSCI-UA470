@@ -4,11 +4,10 @@ import javax.swing.*;
 import manager.ProductManager;
 
 public class UploadProductsGUI extends JFrame {
-    private ProductManager productManager;
+
     private JTextField txtName, txtPrice, txtQuantity;
 
-    public UploadProductsGUI(ProductManager productManager) {
-        this.productManager = productManager;
+    public UploadProductsGUI() {
         setTitle("Upload New Product");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setBounds(100, 100, 400, 260);
@@ -48,6 +47,8 @@ public class UploadProductsGUI extends JFrame {
         String name = txtName.getText();
         double price = Double.parseDouble(txtPrice.getText());
         int qty = Integer.parseInt(txtQuantity.getText());
+
+        ProductManager productManager = new ProductManager();
         productManager.addProduct(name, price, qty);
         JOptionPane.showMessageDialog(this, "Product added!");
         dispose();
