@@ -85,7 +85,6 @@ public class ModifyProductsGUI extends JFrame {
                 return;
             }
 
-
             ProductManager productManager = new ProductManager();
             Product prod = productManager.getProducts().get(r);
             productManager.getProducts().remove(prod);

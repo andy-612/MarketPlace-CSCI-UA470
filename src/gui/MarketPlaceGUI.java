@@ -5,7 +5,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-// import java.util.ArrayList;
 import manager.ProfileManager;
 import manager.ProductManager;
 import model.Product;
@@ -17,7 +16,6 @@ public class MarketPlaceGUI extends JFrame {
     public MarketPlaceGUI(String username) {
         super("Marketplace - Welcome, " + username);
         this.username = username;
-
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -123,7 +121,7 @@ public class MarketPlaceGUI extends JFrame {
                 productManager.increaseQuantity(name);
                 JOptionPane.showMessageDialog(this, "Return successful.");
                 updateTable((DefaultTableModel) productTable.getModel());
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "You have not purchased this product yet.");
             }
         }

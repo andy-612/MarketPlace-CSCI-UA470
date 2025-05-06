@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import model.Profile;
 import manager.ProfileManager;
-import manager.ProductManager;
 
 public class BuyerLoginGUI extends JFrame {
 
@@ -20,7 +19,7 @@ public class BuyerLoginGUI extends JFrame {
         JPasswordField passwordField = new JPasswordField(15);
         JButton loginButton = new JButton("Login");
         JButton createButton = new JButton("Create Profile");
-        JButton backButton   = new JButton("Back to Main Menu");
+        JButton backButton = new JButton("Back to Main Menu");
         loginButton.addActionListener(e -> {
             btnLogin_click(usernameField, passwordField);
         });
@@ -43,7 +42,7 @@ public class BuyerLoginGUI extends JFrame {
         setVisible(true);
     }
 
-    public void btnLogin_click(JTextField usernameField, JPasswordField passwordField){
+    public void btnLogin_click(JTextField usernameField, JPasswordField passwordField) {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
         ProfileManager profileManager = new ProfileManager();
@@ -61,15 +60,14 @@ public class BuyerLoginGUI extends JFrame {
         }
     }
 
-    public void btnCreate_click(){
+    public void btnCreate_click() {
         new CreateProfileGUI();
         dispose();
     }
 
-    public void btnBack_click(){
+    public void btnBack_click() {
         new MainGUI();
         dispose();
     }
-
 
 }

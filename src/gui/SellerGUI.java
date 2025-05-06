@@ -1,9 +1,6 @@
 package gui;
 
 import javax.swing.*;
-import manager.ProductManager;
-
-import manager.ProfileManager;
 
 public class SellerGUI extends JFrame {
 
@@ -35,7 +32,7 @@ public class SellerGUI extends JFrame {
         btnRespond.addActionListener(e -> respondComments());
         contentPane.add(btnRespond);
 
-		JButton btnExit = new JButton("Return to Main Menu");
+        JButton btnExit = new JButton("Return to Main Menu");
         btnExit.setBounds(159, 275, 200, 50);
         btnExit.addActionListener(e -> {
             exit_click();
@@ -43,10 +40,10 @@ public class SellerGUI extends JFrame {
         add(btnExit);
         setLocationRelativeTo(null);
         setVisible(true);
-    
+
     }
 
-    public void exit_click(){
+    public void exit_click() {
         new MainGUI();
         dispose();
     }
@@ -54,12 +51,15 @@ public class SellerGUI extends JFrame {
     public void openUploadProducts() {
         new UploadProductsGUI().setVisible(true);
     }
+
     public void modifyProducts() {
         new ModifyProductsGUI().setVisible(true);
     }
+
     public void viewSalesStatistics() {
         new ViewSalesStatisticsGUI().setVisible(true);
     }
+
     public void respondComments() {
         new RespondCommentsGUI().setVisible(true);
     }
