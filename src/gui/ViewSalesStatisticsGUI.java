@@ -8,11 +8,9 @@ import java.awt.*;
 import java.util.Collection;
 
 public class ViewSalesStatisticsGUI extends JFrame {
-    private ProductManager productManager;
 
-    public ViewSalesStatisticsGUI(ProductManager productManager) {
+    public ViewSalesStatisticsGUI() {
         super("Sales Statistics");
-        this.productManager = productManager;
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(400, 200);
 
@@ -25,6 +23,7 @@ public class ViewSalesStatisticsGUI extends JFrame {
     }
 
     private Object[][] fetchData() {
+        ProductManager productManager = new ProductManager();
         Collection<Product> list = productManager.getProducts();
         Object[][] rows = new Object[list.size()][3];
         int i = 0;

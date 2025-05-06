@@ -38,9 +38,6 @@ public class Product {
             temp = temp.replaceAll("<p>", "");
             return temp;
         }
-
-
-        // return reviews.isEmpty() ? "" : reviews.get(reviews.size() - 1);
     }
 
 
@@ -69,8 +66,6 @@ public class Product {
             int index = reviews.indexOf(comment);
             String temp = comment + "<p>Seller: " + response + "<p>";
             reviews.set(index, temp);
-            // reviews.set(reviews.size() - 1,
-            //     reviews.get(reviews.size() - 1) + "\nSeller: " + response);
         }
     }
     public void addReviewRaw(String review) {

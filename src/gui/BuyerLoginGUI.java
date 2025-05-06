@@ -7,13 +7,8 @@ import manager.ProfileManager;
 import manager.ProductManager;
 
 public class BuyerLoginGUI extends JFrame {
-    protected ProfileManager profileManager;
-    protected ProductManager productManager;
 
-    public BuyerLoginGUI(ProfileManager profileManager, ProductManager productManager) {
-        this.profileManager = profileManager;
-        this.productManager = productManager;
-
+    public BuyerLoginGUI() {
         setTitle("Buyer Login");
         setSize(350, 250);
         setLocationRelativeTo(null);
@@ -51,10 +46,12 @@ public class BuyerLoginGUI extends JFrame {
     public void btnLogin_click(JTextField usernameField, JPasswordField passwordField){
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
+        ProfileManager profileManager = new ProfileManager();
+
         if (profileManager.profileExists(username)) {
             Profile profile = profileManager.getProfile(username);
             if (profile.getPassword().equals(password)) {
-                new MarketPlaceGUI(username, profileManager, productManager);
+                new MarketPlaceGUI(username);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Incorrect password.");
@@ -65,12 +62,12 @@ public class BuyerLoginGUI extends JFrame {
     }
 
     public void btnCreate_click(){
-        new CreateProfileGUI(profileManager, productManager);
+        new CreateProfileGUI();
         dispose();
     }
 
     public void btnBack_click(){
-        new MainGUI(profileManager, productManager);
+        new MainGUI();
         dispose();
     }
 

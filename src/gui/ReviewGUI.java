@@ -8,11 +8,13 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class ReviewGUI extends JFrame {
-  public ReviewGUI(String username, ProductManager productManager, manager.ProfileManager profileManager) {
+  public ReviewGUI(String username) {
     setTitle("Leave a Review");
     setSize(400, 300);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+    ProductManager productManager = new ProductManager();
 
     JLabel label = new JLabel("Write your review:");
     JTextArea reviewArea = new JTextArea(10, 30);
@@ -28,26 +30,11 @@ public class ReviewGUI extends JFrame {
     JButton backButton = new JButton("Back");
 
     submitButton.addActionListener(e -> {
-      String selectedProduct = (String) productDropdown.getSelectedItem();
-      String review = reviewArea.getText();
-
-      for (Product p : products) {
-        if (p.getName().equals(selectedProduct)) {
-          p.addReview(review);
-          break;
-        }
-      }
-
-      data.DataUtil.saveProducts(products);
-
-      JOptionPane.showMessageDialog(this, "Review submitted!");
-      new MarketPlaceGUI(username, profileManager, productManager);
-      dispose();
+      btnSubmit_click(productDropdown, reviewArea, products, productManager, username);
     });
 
     backButton.addActionListener(e -> {
-      new MarketPlaceGUI(username, profileManager, productManager);
-      dispose();
+      btnBack_click(username);
     });
 
     JPanel topPanel = new JPanel(new BorderLayout());
@@ -68,5 +55,29 @@ public class ReviewGUI extends JFrame {
 
     add(mainPanel);
     setVisible(true);
+  }
+
+
+  public void btnSubmit_click(JComboBox<String> productDropdown, JTextArea reviewArea, ArrayList<Product> products, ProductManager productManager, String username){
+    String selectedProduct = (String) productDropdown.getSelectedItem();
+      String review = reviewArea.getText();
+
+      for (Product p : products) {
+        if (p.getName().equals(selectedProduct)) {
+          p.addReview(review);
+          break;
+        }
+      }
+
+      productManager.saveProducts(products);
+
+      JOptionPane.showMessageDialog(this, "Review submitted!");
+      new MarketPlaceGUI(username);
+      dispose();
+  }
+
+  public void btnBack_click(String username){
+    new MarketPlaceGUI(username);
+    dispose();
   }
 }
