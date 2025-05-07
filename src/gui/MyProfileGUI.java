@@ -1,9 +1,6 @@
 package gui;
 
-import manager.ProductManager;
 import manager.ProfileManager;
-// import model.Profile;
-import model.Product;
 
 import javax.swing.*;
 import java.awt.*;

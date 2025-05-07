@@ -2,8 +2,6 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 import manager.ProfileManager;
-import model.Profile;
-import manager.ProductManager;
 
 public class CreateProfileGUI extends JFrame {
 

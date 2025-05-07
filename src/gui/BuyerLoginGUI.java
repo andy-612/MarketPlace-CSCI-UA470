@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import model.Profile;
 import manager.ProfileManager;
-import manager.ProductManager;
 
 public class BuyerLoginGUI extends JFrame {
 

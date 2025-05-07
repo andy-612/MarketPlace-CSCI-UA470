@@ -1,24 +1,31 @@
 package gui;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+
 import manager.ProductManager;
 import model.Product;
 
+
 public class RespondCommentsGUI extends JFrame {
     private JPanel commentsPanel;
+
 
     public RespondCommentsGUI() {
         super("Respond to Comments");
         setSize(new Dimension(450, 600));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
+
         commentsPanel = new JPanel();
         commentsPanel.setLayout(new BoxLayout(commentsPanel, BoxLayout.Y_AXIS));
 
+
         boolean flag = false;
+
 
         ProductManager productManager = new ProductManager();
         ArrayList<Product> products = productManager.getProducts();
@@ -29,11 +36,14 @@ public class RespondCommentsGUI extends JFrame {
             }
         }
 
+
         if(flag == false){
             JPanel temp = new JPanel();
             temp.add(new JLabel("<html><center>Nothing is here</center></html>"));
             commentsPanel.add(temp);
         }
+
+
 
 
         JButton btnExit = new JButton("Return to Main Menu");
@@ -44,6 +54,7 @@ public class RespondCommentsGUI extends JFrame {
         temp.add(btnExit);
         commentsPanel.add(temp);
 
+
         JScrollPane scroll = new JScrollPane(commentsPanel);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -51,6 +62,7 @@ public class RespondCommentsGUI extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
+
 
     private void addCommentRow(Product p, String review, ArrayList<Product> products){
         String temp = review.replaceAll("Buyer:", p.getName() + " buyer: ");
@@ -63,14 +75,21 @@ public class RespondCommentsGUI extends JFrame {
         action.add(responseField); action.add(btnRespond);
         commentsPanel.add(action);
 
+
         btnRespond.addActionListener(e -> {
-            String resp = responseField.getText();
-            p.addResponse(resp, review);
-            ProductManager productManager = new ProductManager();
-            productManager.saveProducts(products);
-            JOptionPane.showMessageDialog(this, "Comment Added!");
-            dispose();
+            btnRespond_click(responseField, p, review, products);
         });
 
+
+    }
+
+
+    public void btnRespond_click(JTextField responseField, Product p, String review, ArrayList<Product> products){
+        String resp = responseField.getText();
+        p.addResponse(resp, review);
+        ProductManager productManager = new ProductManager();
+        productManager.saveProducts(products);
+        JOptionPane.showMessageDialog(this, "Comment Added!");
+        dispose();
     }
 }

@@ -3,14 +3,9 @@ package manager;
 import model.Product;
 
 import java.util.ArrayList;
-import model.Product;
-import model.Profile;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ProductManager {
