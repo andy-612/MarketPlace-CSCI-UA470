@@ -61,42 +61,14 @@ public class ModifyProductsGUI extends JFrame {
         JButton btnUpdate = new JButton("Update");
         btnUpdate.setBounds(360, 260, 120, 30);
         btnUpdate.addActionListener(e -> {
-            int r = table.getSelectedRow();
-
-            ProductManager productManager = new ProductManager();
-            Product prod = productManager.getProducts().get(r);
-            prod.setName(txtNewName.getText());
-            prod.setPrice(Double.parseDouble(txtNewPrice.getText()));
-            prod.setQuantity(Integer.parseInt(txtNewQuantity.getText()));
-            productManager.saveProducts(productManager.getProducts());
-            model.setValueAt(prod.getName(), r, 0);
-            model.setValueAt(prod.getPrice(), r, 1);
-            model.setValueAt(prod.getQuantity(), r, 2);
-            JOptionPane.showMessageDialog(this, "Product updated successfully!");
+            btnUpdate_click();
         });
         contentPane.add(btnUpdate);
 
         JButton btnDelete = new JButton("Delete");
         btnDelete.setBounds(360, 310, 120, 30);
         btnDelete.addActionListener(e -> {
-            int r = table.getSelectedRow();
-            if (r == -1) {
-                JOptionPane.showMessageDialog(this, "Please select a product to delete.");
-                return;
-            }
-
-            ProductManager productManager = new ProductManager();
-            Product prod = productManager.getProducts().get(r);
-            productManager.getProducts().remove(prod);
-            productManager.saveProducts(productManager.getProducts());
-
-            model.removeRow(r);
-
-            txtNewName.setText("");
-            txtNewPrice.setText("");
-            txtNewQuantity.setText("");
-
-            JOptionPane.showMessageDialog(this, "Product deleted successfully!");
+            btnDelete_click();
         });
         contentPane.add(btnDelete);
         setLocationRelativeTo(null);
@@ -112,5 +84,41 @@ public class ModifyProductsGUI extends JFrame {
             arr[i] = new Object[] { p.getName(), p.getPrice(), p.getQuantity() };
         }
         return arr;
+    }
+
+    public void btnUpdate_click() {
+        int r = table.getSelectedRow();
+
+        ProductManager productManager = new ProductManager();
+        Product prod = productManager.getProducts().get(r);
+        prod.setName(txtNewName.getText());
+        prod.setPrice(Double.parseDouble(txtNewPrice.getText()));
+        prod.setQuantity(Integer.parseInt(txtNewQuantity.getText()));
+        productManager.saveProducts(productManager.getProducts());
+        model.setValueAt(prod.getName(), r, 0);
+        model.setValueAt(prod.getPrice(), r, 1);
+        model.setValueAt(prod.getQuantity(), r, 2);
+        JOptionPane.showMessageDialog(this, "Product updated successfully!");
+    }
+
+    public void btnDelete_click() {
+        int r = table.getSelectedRow();
+        if (r == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a product to delete.");
+            return;
+        }
+
+        ProductManager productManager = new ProductManager();
+        Product prod = productManager.getProducts().get(r);
+        productManager.getProducts().remove(prod);
+        productManager.saveProducts(productManager.getProducts());
+
+        model.removeRow(r);
+
+        txtNewName.setText("");
+        txtNewPrice.setText("");
+        txtNewQuantity.setText("");
+
+        JOptionPane.showMessageDialog(this, "Product deleted successfully!");
     }
 }

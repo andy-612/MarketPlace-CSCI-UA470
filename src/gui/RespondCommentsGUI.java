@@ -62,15 +62,18 @@ public class RespondCommentsGUI extends JFrame {
         action.add(responseField);
         action.add(btnRespond);
         commentsPanel.add(action);
-
         btnRespond.addActionListener(e -> {
-            String resp = responseField.getText();
-            p.addResponse(resp, review);
-            ProductManager productManager = new ProductManager();
-            productManager.saveProducts(products);
-            JOptionPane.showMessageDialog(this, "Comment Added!");
-            dispose();
+            btnRespond_click(responseField, p, review, products);
         });
 
+    }
+
+    public void btnRespond_click(JTextField responseField, Product p, String review, ArrayList<Product> products) {
+        String resp = responseField.getText();
+        p.addResponse(resp, review);
+        ProductManager productManager = new ProductManager();
+        productManager.saveProducts(products);
+        JOptionPane.showMessageDialog(this, "Comment Added!");
+        dispose();
     }
 }
