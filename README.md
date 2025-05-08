@@ -1,8 +1,8 @@
 # MarketPlace System
 
-## Description
+## Description and Vision
 
-- This project is a marketplace that facilitate trades between Buyers and Sellers. Different buyers can come to this platform to browse, purchase, and review products available for sale. Sellers are able to upload products to this platform, which is managed by a single platform seller. The reason for a single manager is to facilitate the sourcing of products and to provide a platform where different buyers can come together to interact.
+- We believe our marketplace system helps facilitate trading strongly between buyers and sellers. Different buyers can come to this platform to create a profile, browse products available for sale, purchase products, and leave reviews for products. As for the sellers, we envisioned a single platform manager that interfaces with the many sellers who are able to upload products to the manager. This is essentially a Costco-like business model to facilitate the sourcing of products from different sellers and places, and enabling faster distribution to customers.
 
 ## Use Case Diagrams
 
