@@ -6,4 +6,4 @@
 
 ### Use Case Diagrams
 
-![Buyer Use Case Diagram]()
+![Buyer Use Case Diagram](diagrams/BuyerUseCase.jpg)
