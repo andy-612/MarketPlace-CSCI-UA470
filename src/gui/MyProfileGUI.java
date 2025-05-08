@@ -23,11 +23,11 @@ public class MyProfileGUI extends JFrame {
         JButton backButton = new JButton("Back");
 
         saveButton.addActionListener(e -> {
-            onSaveClick(profileManager, username, nameField, phoneField);
+            onSaveClick(username, nameField, phoneField);
         });
 
         deleteButton.addActionListener(e -> {
-            onDeleteClick(profileManager, username);
+            onDeleteClick(username);
         });
 
         backButton.addActionListener(e -> {
@@ -47,13 +47,15 @@ public class MyProfileGUI extends JFrame {
         setVisible(true);
     }
 
-    public void onSaveClick(ProfileManager profileManager, String username, JTextField nameField,
+    public void onSaveClick(String username, JTextField nameField,
             JTextField phoneField) {
+        ProfileManager profileManager = new ProfileManager();
         profileManager.updateProfile(username, nameField.getText(), phoneField.getText());
         JOptionPane.showMessageDialog(this, "Changes saved.");
     }
 
-    public void onDeleteClick(ProfileManager profileManager, String username) {
+    public void onDeleteClick(String username) {
+        ProfileManager profileManager = new ProfileManager();
         profileManager.deleteProfile(username);
         new BuyerLoginGUI();
         dispose();

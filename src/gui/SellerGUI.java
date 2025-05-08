@@ -14,7 +14,7 @@ public class SellerGUI extends JFrame {
 
         JButton btnUpload = new JButton("Upload New Products");
         btnUpload.setBounds(159, 35, 200, 50);
-        btnUpload.addActionListener(e -> openUploadProducts());
+        btnUpload.addActionListener(e -> uploadNewProducts());
         contentPane.add(btnUpload);
 
         JButton btnModify = new JButton("Modify Products");
@@ -48,7 +48,7 @@ public class SellerGUI extends JFrame {
         dispose();
     }
 
-    public void openUploadProducts() {
+    public void uploadNewProducts() {
         new UploadProductsGUI().setVisible(true);
     }
 
