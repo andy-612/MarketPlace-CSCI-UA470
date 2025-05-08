@@ -101,7 +101,7 @@ public class MarketPlaceGUI extends JFrame {
         ProfileManager profileManager = new ProfileManager();
         if (r >= 0) {
             String name = productTable.getValueAt(r, 0).toString();
-            if (productManager.reduceQuantity(name)) {
+            if (productManager.reduceQuantity(r)) {
                 profileManager.addPurchaseToProfile(username, new Product(name,
                         Double.parseDouble(productTable.getValueAt(r, 1).toString()), 1));
                 JOptionPane.showMessageDialog(this, "Purchase successful.");
@@ -118,7 +118,7 @@ public class MarketPlaceGUI extends JFrame {
         if (r >= 0) {
             String name = productTable.getValueAt(r, 0).toString();
             if (profileManager.removePurchaseFromProfile(username, new Product(name, 0, 1))) {
-                productManager.increaseQuantity(name);
+                productManager.increaseQuantity(r);
                 JOptionPane.showMessageDialog(this, "Return successful.");
                 updateTable((DefaultTableModel) productTable.getModel());
             } else {

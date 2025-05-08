@@ -82,13 +82,19 @@ public class ProductManager {
         saveProducts(products);
     }
 
+    public void removeProduct(int index) {
+        products.remove(index);
+        saveProducts(products);
+    }
+
     public ArrayList<Product> getProducts() {
         return products;
     }
 
-    public boolean reduceQuantity(String productName) {
-        for (Product p : products) {
-            if (p.getName().equals(productName) && p.getQuantity() > 0) {
+    public boolean reduceQuantity(int index) {
+        if (index >= 0 && index < products.size()) {
+            Product p = products.get(index);
+            if (p.getQuantity() > 0) {
                 p.recordSale();
                 saveProducts(products);
                 return true;
@@ -97,13 +103,11 @@ public class ProductManager {
         return false;
     }
 
-    public boolean increaseQuantity(String productName) {
-        for (Product p : products) {
-            if (p.getName().equals(productName)) {
-                p.recordReturn();
-                saveProducts(products);
-                return true;
-            }
+    public boolean increaseQuantity(int index) {
+        if (index >= 0 && index < products.size()) {
+            products.get(index).recordReturn();
+            saveProducts(products);
+            return true;
         }
         return false;
     }
