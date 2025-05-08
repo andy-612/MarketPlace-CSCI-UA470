@@ -37,13 +37,13 @@ public class UploadProductsGUI extends JFrame {
 
         JButton btnUpload = new JButton("Upload Item");
         btnUpload.setBounds(140, 160, 120, 30);
-        btnUpload.addActionListener(e -> performUpload());
+        btnUpload.addActionListener(e -> upload());
         contentPane.add(btnUpload);
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
-    private void performUpload() {
+    private void upload() {
         String name = txtName.getText();
         double price = Double.parseDouble(txtPrice.getText());
         int qty = Integer.parseInt(txtQuantity.getText());
