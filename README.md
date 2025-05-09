@@ -58,7 +58,7 @@
 
 ### Respond to Comments
 
-![Respond to Comments](diagrams/RespondComments.jpg)
+![Respond to Comments](diagrams/RespondtoComments.jpg)
 
 ### Modify Products
 
